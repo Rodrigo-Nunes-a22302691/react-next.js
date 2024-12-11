@@ -5,6 +5,7 @@ import styles from '@/components/Card/Card.module.css';
 
 export default function Page() {
   return (
+
     <section className="loja">
 
       <h2 className={styles.veja}> Veja os produtos </h2>
