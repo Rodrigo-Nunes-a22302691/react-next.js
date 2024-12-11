@@ -19,8 +19,12 @@ body {
 
 main {
   /* Reset e Box Model */
-  width: 320px;
-  height: 450px;
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+
+  width: 80%;
   padding: 20px;
   border-radius: 20px;
   overflow-y: auto;
