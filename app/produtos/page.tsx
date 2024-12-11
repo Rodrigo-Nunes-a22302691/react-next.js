@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Card from '@/components/Card/Card';  // Importe o componente Card
-import produtos from './private/produtos.json';  // Importando os produtos do arquivo JSON
 import styles from '@/components/Card/Card.module.css'; 
 import useSWR from 'swr';
 
