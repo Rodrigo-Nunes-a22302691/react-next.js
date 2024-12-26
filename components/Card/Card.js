@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Card.module.css'; 
 
-const Card = ({ produto }) => {
+const Card = ({ produto, addCarinho }) => {
   return (
     <div className={styles.produto}>  {/* Usando a classe como uma propriedade do objeto styles */}
       <h3>{produto.title}</h3>
@@ -9,6 +9,7 @@ const Card = ({ produto }) => {
       <p className={styles.preco}>Custo total: {produto.price}€</p>
       <p className={styles.descricao}>{produto.description}</p>
       <p className={styles.rating}>{produto.rating.rate} / 5.0 <span className={styles.star}>★</span></p>
+      <button className={styles.button} onClick={ () => addCarinho(produto)}> +Carinho </button>
     </div>
   );
 };
