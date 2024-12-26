@@ -15,6 +15,13 @@ export default function Page() {
   const { data, error, isLoading } = useSWR<Product[], Error>('API/Produtos', fetcher);
 
   useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      setCarinho(JSON.parse(savedCart));
+    }
+  }, []);
+
+  useEffect(() => {
     if (data) {
       const newFilteredData = data.filter((product) => 
         product.title.toLowerCase().includes(pesquisa.toLowerCase())
@@ -23,23 +30,15 @@ export default function Page() {
     }
   }, [pesquisa, data]);
 
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(carinho))
-  }, [carinho])
-
-  if(localStorage.getItem("cart") == null) {
-    localStorage.setItem("cart", JSON.stringify([]));
-  }
+  const addCarinho = (produto: Product) => {
+    const newCarinho = [...carinho, produto];
+    setCarinho(newCarinho);
+    localStorage.setItem("cart", JSON.stringify(newCarinho));
+  };
 
   if (error) return <div>Erro a ler dados</div>;
   if (isLoading) return <div>A ler...</div>;
   if (!data) return <div>Nao há dados</div>;
-
-  function addCarinho(product){
-
-    setCarinho((prevCart) => [...prevCart, product]);
-
-  }
 
   return (
     <section className="loja">
@@ -58,15 +57,25 @@ export default function Page() {
         ))}
       </section>
 
-      <section className="produtos"> 
 
-        let produtosCarinho = localStorage.getItem("cart");
 
-        {produtosFiltrados.map((produtosCarinho) => (
-          <Card key={produtosCarinho.id} produto={produtosCarinho} addCarinho={addCarinho} />
-        ))}
+
+      <section className={styles.compra}>
+        <p className={styles.precoCarinho}>preço</p>
+        <p>
+          <span>És estudante da DEISI? <input type="checkbox" id="estudante" /></span>
+          <span>Cupão de desconto: <input type="text" id="cupao" /></span>
+        </p>
+        <p>Diga a sua morada <input type="text" id="moradaInput" className="moradaInput" placeholder="Digite sua morada aqui" /></p>
+        <button className={styles.comprar}>Comprar</button>
+
+        <section className={styles.dadosDeCompra}>
+          <h3>Produtos no Carrinho</h3>
+          {carinho.map((produto) => (
+            <Card key={produto.id} produto={produto} addCarinho={addCarinho} />
+          ))}
+        </section>
       </section>
-
     </section>
   );
 }
