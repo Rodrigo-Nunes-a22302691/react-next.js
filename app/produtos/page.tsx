@@ -62,6 +62,7 @@ export default function Page() {
       }
       return response.json();
     }).then(response => {
+      console.log(response);
       setCarinho([]);
       localStorage.setItem('cart', JSON.stringify([]))
     }).catch(() => {
