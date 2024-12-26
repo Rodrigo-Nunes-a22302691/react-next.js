@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Card from '@/components/Card/Card';
+import Carinho from '@/components/Card/Carinho';
 import styles from '@/components/Card/Card.module.css';
 import useSWR from 'swr';
 import { Product } from '../models/interfaces';
@@ -36,6 +37,39 @@ export default function Page() {
     localStorage.setItem("cart", JSON.stringify(newCarinho));
   };
 
+  const removeCarinho = (produto: Product) => {
+    const newCarinho = carinho.filter(item => item.id !== produto.id);
+    setCarinho(newCarinho);
+    localStorage.setItem("cart", JSON.stringify(newCarinho));
+  };
+
+  const buy = () => {
+
+    fetch("API/deisishop/buy", {
+      method: "POST",
+      body: JSON.stringify({
+        products: carinho.map(product => product.id),
+        name: "",
+        student: false,
+        coupon: ""
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      return response.json();
+    }).then(response => {
+      setCarinho([]);
+      localStorage.setItem('cart', JSON.stringify([]))
+    }).catch(() => {
+      console.log("error ao comprar");
+    });
+
+  }
+
   if (error) return <div>Erro a ler dados</div>;
   if (isLoading) return <div>A ler...</div>;
   if (!data) return <div>Nao há dados</div>;
@@ -61,21 +95,23 @@ export default function Page() {
 
 
       <section className={styles.compra}>
-        <p className={styles.precoCarinho}>preço</p>
-        <p>
-          <span>És estudante da DEISI? <input type="checkbox" id="estudante" /></span>
-          <span>Cupão de desconto: <input type="text" id="cupao" /></span>
-        </p>
-        <p>Diga a sua morada <input type="text" id="moradaInput" className="moradaInput" placeholder="Digite sua morada aqui" /></p>
-        <button className={styles.comprar}>Comprar</button>
+
+        <button className={styles.comprar} onClick={() => buy()}>Comprar</button>
 
         <section className={styles.dadosDeCompra}>
           <h3>Produtos no Carrinho</h3>
+
           {carinho.map((produto) => (
-            <Card key={produto.id} produto={produto} addCarinho={addCarinho} />
+
+            <Carinho key={produto.id} produto={produto} removeCarinho={removeCarinho} />
+
           ))}
+
         </section>
+
       </section>
+
     </section>
+
   );
 }
