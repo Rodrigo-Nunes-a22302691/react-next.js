@@ -3,7 +3,7 @@ import styles from './Card.module.css';
 
 const Card = ({ produto, removeCarinho }) => {
   return (
-    <div className={styles.produto}>  {/* Usando a classe como uma propriedade do objeto styles */}
+    <div className={styles.produtoCarinho}>
       <h3>{produto.title}</h3>
       <img className={styles.imagem} src={produto.image} alt={`Imagem de ${produto.title}`} />
       <p className={styles.preco}>Custo total: {produto.price}€</p>

@@ -29,16 +29,24 @@ export default function Page() {
       );
       setProdutosFiltrados(newFilteredData);
     }
-  }, [pesquisa, data]);
+  }, [pesquisa, data, carinho]);
 
   const addCarinho = (produto: Product) => {
+    
+    const produtoExistente = carinho.some(item => item.id === produto.id);
+    
+    if (produtoExistente) {
+      return;
+    }
+
     const newCarinho = [...carinho, produto];
     setCarinho(newCarinho);
     localStorage.setItem("cart", JSON.stringify(newCarinho));
   };
 
   const removeCarinho = (produto: Product) => {
-    const newCarinho = carinho.filter(item => item.id !== produto.id);
+    const newCarinho = carinho.filter(item => item.id != produto.id);
+    setCarinho([]);
     setCarinho(newCarinho);
     localStorage.setItem("cart", JSON.stringify(newCarinho));
   };
@@ -76,7 +84,8 @@ export default function Page() {
   if (!data) return <div>Nao há dados</div>;
 
   return (
-    <section className="loja">
+    
+    <section className={styles.loja}>
       <section className={styles.pesquisa}>
         <h2>Filters</h2>
         <section className={styles.pesquisaInputs}>
@@ -86,9 +95,11 @@ export default function Page() {
 
       <h2 className={styles.veja}>Veja os prodrutos</h2>
 
-      <section className="produtos">
+      <section className={styles.produtos}>
         {produtosFiltrados.map((produto) => (
+
           <Card key={produto.id} produto={produto} addCarinho={addCarinho} />
+
         ))}
       </section>
 
@@ -97,16 +108,20 @@ export default function Page() {
 
       <section className={styles.compra}>
 
-        <button className={styles.comprar} onClick={() => buy()}>Comprar</button>
+        <button className={styles.button} onClick={() => buy()}>Comprar</button>
 
         <section className={styles.dadosDeCompra}>
           <h3>Produtos no Carrinho</h3>
 
-          {carinho.map((produto) => (
+          <section className={styles.produtos}>
 
-            <Carinho key={produto.id} produto={produto} removeCarinho={removeCarinho} />
+            {carinho.map((produto) => (
 
-          ))}
+              <Carinho key={produto.id} produto={produto} removeCarinho={removeCarinho} />
+
+            ))}
+
+          </section>
 
         </section>
 

@@ -1,9 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Itim&display=swap');
+
+.loja{
+
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+}
+
+
+
 
 .veja{
 
     text-align: center;
-    font-size: 30px;
+    font-size: 50px;
     font-weight: bold;
+
+    font-family: "Itim", serif;
 
 }
 
@@ -17,16 +34,41 @@
 .pesquisa {
 
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  justify-content: start;
   flex-direction: column;
+
+}
+
+.pesquisa h2{
+
+  display: flex;
+
+  margin: 0px;
+  margin-top: 10px;
+  font-size: 55px;
+  font-family: 'Itim', sans-serif;
 
 }
 
 .pesquisa p {
 
+  margin: 0px;
+
+
+  font-size: 40px;
+  font-family: 'Itim', sans-serif;
+
+}
+
+.pesquisa input{
+
+  padding: 10px;
   font-size: 20px;
-  font-weight: bold;
+  border: 3px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 
 }
 
@@ -51,24 +93,42 @@
 
 
 
-.produtos, .carinho{
-    display: flex;
+.produtos{
 
-    justify-content: center;
+  display: flex;
 
-    flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+
+  flex-wrap: wrap;
+
 }
 
 .produto {
+
     display: flex;
     width: 600px;
+    height: 1200px;
     padding: 15px;
-    margin: 30px;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+
     background-color: white;
     border-radius: 20px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-direction: column;
+
+  }
+
+  .produto h3{
+    font-size: 25px;
+    font-family: 'Itim', sans-serif;
+  }
+
+  .produto p{
+    font-family: 'Itim', sans-serif;
   }
 
   .imagem{
@@ -99,6 +159,7 @@
   }
   
   .button {
+
     border: 0;
     font-size: 20px;
     width: 200px;
@@ -106,11 +167,18 @@
     padding: 10px;
     background-color: lightblue;
     border-radius: 30px;
+    font-family: "Itim", serif;
+    font-size: 25px;
+    transition: background-color 0.4s ease-in-out;
+
   }
   
   .button:hover {
-    background-color: white;
-    border: 5px solid lightblue;
+
+    background-color: rgb(56, 167, 204);
+    transform: scale(1.25);
+    transition: transform 0.4s ease-in-out;
+    
   }
 
   .cesto
@@ -186,10 +254,12 @@
     border-radius: 30px;
 }
 
-.compra button:hover{
-    background-color: white;
+.button:active{
 
-    border: 5px solid lightblue;
+  transform: scale(1); 
+  transition: transform 0s ease-in-out;
+
+
 }
 
 
@@ -197,8 +267,43 @@
     font-size: 24px;
 }
 
+.compra{
+
+  background-color: aliceblue;
+
+}
+
 .dadosDeCompra h3{
 
   text-align: center;
+  font-size: 55px;
+  font-family: 'Itim', sans-serif;
 
+}
+
+.produtoCarinho{
+
+  display: flex;
+  width: 600px;
+  padding: 15px;
+  margin: 18px;
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  background-color: white;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+
+}
+
+.produtoCarinho h3{
+  font-size: 25px;
+  font-family: 'Itim', sans-serif;
+}
+
+.produtoCarinho p{
+  font-family: 'Itim', sans-serif;
 }
